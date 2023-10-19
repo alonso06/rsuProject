@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// hola
+// cambio
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -26,3 +29,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+//victor
+//manuel
