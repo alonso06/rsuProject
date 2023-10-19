@@ -35,8 +35,8 @@
                         <tr>
                             <td>{{ $tree->id }}</td>
                             <td>{{ $tree->name }}</td>
-                            <td>{{ $tree->zone_id }}</td>
-                            <td>{{ $tree->specie_id }}</td>
+                            <td>{{ $tree->zone_name }}</td>
+                            <td>{{ $tree->specie_name }}</td>
                             <td>{{ $tree->birth_date }}</td>
                             <td>{{ $tree->planting_date }}</td>
                             <td>{{ $tree->description }}</td>

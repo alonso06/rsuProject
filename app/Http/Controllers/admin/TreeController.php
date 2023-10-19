@@ -18,8 +18,12 @@ class TreeController extends Controller
      */
     public function index()
     {
-        $trees = Trees::all();
+        $trees = Trees::select('trees.*', 'zones.name as zone_name', 'species.name as specie_name')
+        ->join('zones', 'trees.zone_id', '=', 'zones.id')
+        ->join('species', 'trees.specie_id', '=', 'species.id')
+        ->get();
         return view('admin.trees.index', compact('trees'));
+
     }
 
     /**
