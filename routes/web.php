@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 // hola
+// cambio
 
 Route::middleware([
     'auth:sanctum',
