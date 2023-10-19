@@ -318,7 +318,7 @@ return [
         ['header' => 'ARBORIZACIÓN'],
         [
             'text'  => 'Registro de árboles',
-            'url'   => 'admin.trees.index',
+            'route'   => 'admin.trees.index',
             'icon'  => 'fas fa-fw fa-tree',
 
         ],
@@ -341,7 +341,7 @@ return [
         ],
         [
             'text' => 'Zonas',
-            'url'  => 'admin.zones.index',
+            'route'  => 'admin.zones.index',
             'icon' => 'fas fa-fw fa-map-signs',
         ],
 
