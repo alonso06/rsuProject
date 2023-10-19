@@ -7,15 +7,40 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## RSU PROJECT
+# RSU PROJECT
 2023-II-TÓPICOS AVANZADOS EN DESARROLLO DE SOFTWARE-A
 
 ## Comandos necesarios para la inicialización del proyecto
-- composer install
-- npm install
-- npm run build
-
-
-## License
+```gitbash
+composer install
+npm install 
+npm run build
+````
+## Comandos empleados en Git 
+### Agregar los cambios al stage
+```gitbash
+git add .
+````
+### Confirmar los cambios
+```gitbash
+git commit -m "Agregar un mensaje a tu commit"
+````
+### Verificar estado del directorio
+```gitbash
+git status 
+```
+### Traer cambios desde el repositorio remoto
+```gitbash
+git pull origin master
+```
+### Si ocurre un error probar 
+```gitbash
+git config pull.rebase false
+git pull origin master
+```
+### Subir cambios al servidor remoto
+```gitbash
+git push origin master
+```
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
