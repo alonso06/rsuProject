@@ -366,13 +366,13 @@ return [
                 [
                     'text' => 'Tipo de tratamiento',
                     'icon' => 'fas fa-fw fa-first-aid',
-                    'url'  => 'admin.proceduretypes.index',
+                    'route'  => 'admin.proceduretypes.index',
 
                 ],
                 [
                     'text' => 'Responsables',
                     'icon' => 'fas fa-fw fa-hard-hat',
-                    'url'  => 'admin.responsibles.index',
+                    'route'  => 'admin.responsibles.index',
 
                 ],
             ],

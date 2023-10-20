@@ -74,7 +74,7 @@
     </div>
     <div class="col-lg-6">
         <div class="form-group">
-            {!! Form::label('longitude', 'Latitud') !!}
+            {!! Form::label('longitude', 'Longitud') !!}
             {!! Form::text('longitude', null, [
                 'class' => 'form-control',
                 'required',
