@@ -370,6 +370,12 @@ return [
 
                 ],
                 [
+                    'text' => 'Tratamiento',
+                    'icon' => 'fas fa-fw fa-first-aid',
+                    'route'  => 'admin.procedures.index',
+
+                ],  
+                [
                     'text' => 'Responsables',
                     'icon' => 'fas fa-fw fa-hard-hat',
                     'route'  => 'admin.responsibles.index',

@@ -8,6 +8,7 @@ use App\Models\admin\Species;
 use App\Models\admin\Trees;
 use App\Models\admin\Zones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TreeController extends Controller
 {
@@ -47,8 +48,18 @@ class TreeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only(['name', 'zone_id', 'specie_id', 'birth_date', 'planting_date', 'latitude', 'longitude', 'description']);
-        Trees::create($data);
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        Trees::create(['name'=> $request->name, 
+        'zone_id'=> $request->zone_id, 
+        'specie_id'=> $request->specie_id, 
+        'birth_date'=> $request->birth_date, 
+        'planting_date'=> $request->planting_date, 
+        'latitude'=> $request->latitude, 
+        'longitude'=> $request->longitude, 
+        'description'=> $request->description, 
+        'user_id'=>$user_id]);
         return Redirect()->route('admin.trees.index')->with('success', 'Árbol registrado');
     }
 
@@ -62,6 +73,7 @@ class TreeController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**
@@ -71,8 +83,12 @@ class TreeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $zones = Zones::pluck('name','id');
+        $families = Families::pluck('name','id');
+        $species = Species::pluck('name','id');
+        $tree = Trees::find($id);
+        return view('admin.trees.edit', compact('tree','zones','families','species'));
     }
 
     /**
@@ -85,6 +101,10 @@ class TreeController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $tree = Trees::find($id);
+        $data = $request->except('family_id');
+        $tree->update($data);
+        return Redirect()->route('admin.trees.index')->with('success','Arbol actualizado');
     }
 
     /**
@@ -96,5 +116,8 @@ class TreeController extends Controller
     public function destroy($id)
     {
         //
+        $tree = Trees::find($id);
+        $tree->delete();
+        return Redirect()->route('admin.trees.index')->with('success','Árbol eliminado');
     }
 }

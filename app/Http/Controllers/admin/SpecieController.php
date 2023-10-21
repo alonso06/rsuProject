@@ -97,4 +97,13 @@ class SpecieController extends Controller
     {
         //
     }
+
+    public function getSpeciesByFamily($id)
+    {
+        
+        $species = Species::where('family_id', '=', $id)->get();
+    
+        // Retorna la respuesta en formato JSON
+        return response()->json($species);
+    }
 }

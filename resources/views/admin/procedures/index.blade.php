@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Arboles')
+@section('title', 'Procedimientos')
 
 @section('content_header')
 
@@ -14,39 +14,37 @@
             <button type="button" class="btn btn-success float-right" id="btnRegistrar">
                 <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Registrar
             </button>
-            <h4>Listado de Árboles</h4>
+            <h4>Listado de Procedimientos</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body ">
             <div class="table-responsive">
-                <table class="table table-striped" id="listados">
+                <table class="table table-striped " id="listados">
                     <thead>
                         <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>ZONA</th>
-                        <th>ESPECIE</th>
-                        <th>F. NACIMIENTO</th>
-                        <th>F. PLANTADO</th>
-                        <th>DESCRIPCION</th>
+                        <th>FECHA</th>
+                        <th>TIPO DE PROCEDIMIENTO</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>ÁRBOL</th>
+                        <th>RESPONSABLE</th>
                         <th></th>
                         <th></th>
-                        <th></th>
+                        {{-- <th></th> --}}
                     </thead>
                     <tbody>
-                        @foreach ($trees as $tree)
+                        @foreach ($procedures as $procedure)
                             <tr>
-                                <td>{{ $tree->id }}</td>
-                                <td>{{ $tree->name }}</td>
-                                <td>{{ $tree->zone_name }}</td>
-                                <td>{{ $tree->specie_name }}</td>
-                                <td>{{ $tree->birth_date }}</td>
-                                <td>{{ $tree->planting_date }}</td>
-                                <td>{{ $tree->description }}</td>
+                                <td>{{ $procedure->id }}</td>
+                                <td>{{ $procedure->date }}</td>
+                                <td>{{ $procedure->procedure_type_name }}</td>
+                                <td>{{ $procedure->description }}</td>
+                                <td>{{ $procedure->tree_name }}</td>
+                                <td>{{ $procedure->responsibles_name }}</td>
                                 <td width="20px">
-                                    <button class="btn btn-success btn-sm btnEditar" data-id="{{ $tree->id }}"><i
+                                    <button class="btn btn-success btn-sm btnEditar" data-id="{{ $procedure->id }}"><i
                                             class="fas fa-edit"></i></button>
                                 </td>
                                 <td width="20px">
-                                    <form action="{{ route('admin.trees.destroy', $tree->id) }}" method="post"
+                                    <form action="{{ route('admin.procedures.destroy', $procedure->id) }}" method="post"
                                         class="eliminacion">
                                         @csrf
                                         @method('delete')
@@ -54,15 +52,15 @@
                                                 class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
-                                <td width="20px">
-                                    <a href="{{ route('admin.trees.show', $tree->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                </td>
+                                {{-- <td width="20px">
+                                    <a href="{{ route('admin.procedures.show', $procedure->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-
+           
         </div>
     </div>
 
@@ -71,7 +69,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Formulario de Árboles</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Formulario de procedimientos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -93,7 +91,7 @@
     <script>
         $('#btnRegistrar').click(function() {
             $.ajax({
-                url: "{{ route('admin.trees.create') }}",
+                url: "{{ route('admin.procedures.create') }}",
                 type: "GET",
                 success: function(response) {
                     $('#Modal .modal-body').html(response);
@@ -102,12 +100,11 @@
             })
         });
 
-
         $('.btnEditar').click(function() {
 
             var id = $(this).attr('data-id');
             $.ajax({
-                url: "{{ route('admin.trees.edit','id') }}".replace('id',id),
+                url: "{{ route('admin.procedures.edit','id') }}".replace('id',id),
                 type: "GET",
                 success: function(response) {
                     $('#Modal .modal-body').html(response);
@@ -134,9 +131,6 @@
                 }
             })
         })
-
-
-
 
         $('#listados').DataTable({
             language: {
