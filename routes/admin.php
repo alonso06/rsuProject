@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\SpecieController;
 use App\Http\Controllers\admin\TreeController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\ZonesController;
+use App\Http\Controllers\admin\ProceduresController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -20,6 +21,10 @@ Route::resource('trees', TreeController::class)->names('admin.trees');
 Route::resource('zones', ZonesController::class)->names('admin.zones');
 Route::resource('proceduretypes', ProcedureTypesController::class)->names('admin.proceduretypes');
 Route::resource('responsibles', ResponsiblesController::class)->names('admin.responsibles');
+Route::resource('procedures', ProceduresController::class)->names('admin.procedures');
+
+//route test
+Route::get('/species/filterFamily/{id}',[SpecieController::class,'getSpeciesByFamily']);
 
 // Alonso
 Route::resource('users', UserController::class)->names('admin.users');

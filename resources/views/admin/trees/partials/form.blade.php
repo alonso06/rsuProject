@@ -49,13 +49,13 @@
     <div class="col-lg-6">
         <div class="form-group">
             {!! Form::label('birth_date', 'Nacimiento') !!}
-            {!! Form::date('birth_date', null, ['class' => 'form-control']) !!}
+            {!! Form::date('birth_date', null, ['class' => 'form-control','required']) !!}
         </div>
     </div>
     <div class="col-lg-6">
         <div class="form-group">
             {!! Form::label('planting_date', 'Fecha de plantado') !!}
-            {!! Form::date('planting_date', null, ['class' => 'form-control']) !!}
+            {!! Form::date('planting_date', null, ['class' => 'form-control','required']) !!}
         </div>
     </div>
 

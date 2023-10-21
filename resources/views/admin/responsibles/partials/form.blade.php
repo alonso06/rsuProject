@@ -6,14 +6,14 @@
     ]) !!}
 </div>
 <div class="form-group">
-    {!! Form::label('name', 'NOMBRE') !!}
+    {!! Form::label('name', 'Nombre') !!}
     {!! Form::text('name', null, [
         'class' => 'form-control',
         'required',
     ]) !!}
 </div>
 <div class="form-group">
-    {!! Form::label('lastname', 'APELLIDOS') !!}
+    {!! Form::label('lastname', 'Apellidos') !!}
     {!! Form::text('lastname', null, [
         'class' => 'form-control',
         'required',
