@@ -15,8 +15,15 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
+        <div class="grid grid-cols-5 grid-rows-1">
+            <div class="col-span-3">
+                <div class="py-4">
+                    <img class="" src="https://sedema.cdmx.gob.mx/storage/app/uploads/public/613/fc9/f2b/613fc9f2b0c4d250881339.jpeg" alt="">
+                </div>
+            </div>
+            <div class="col-span-2 bg-yellow-400 font-sans text-gray-900 antialiased">
+                {{ $slot }}
+            </div>
         </div>
     </body>
 </html>

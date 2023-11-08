@@ -27,7 +27,11 @@ Route::resource('procedures', ProceduresController::class)->names('admin.procedu
 Route::get('/species/filterFamily/{id}',[SpecieController::class,'getSpeciesByFamily']);
 
 // Alonso
-Route::resource('users', UserController::class)->names('admin.users');
+// Ruta para perfil de usuario
+Route::get('/profile', function () {
+    return view('profile.show');
+})->name('profile');
+// Route::resource('users', UserController::class)->names('admin.users');
 
 
 ?>
