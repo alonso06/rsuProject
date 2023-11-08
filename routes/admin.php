@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\ProcedureTypesController;
 use App\Http\Controllers\admin\ResponsiblesController;
 use App\Http\Controllers\admin\SpecieController;
 use App\Http\Controllers\admin\TreeController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\ZonesController;
 use App\Http\Controllers\admin\ProceduresController;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +25,9 @@ Route::resource('procedures', ProceduresController::class)->names('admin.procedu
 
 //route test
 Route::get('/species/filterFamily/{id}',[SpecieController::class,'getSpeciesByFamily']);
+
+// Alonso
+Route::resource('users', UserController::class)->names('admin.users');
+
 
 ?>
