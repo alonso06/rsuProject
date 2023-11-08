@@ -89,3 +89,24 @@
     {!! Form::label('description', 'Descripción') !!}
     {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 3]) !!}
 </div>
+<script>
+    var myFamilySelect = document.querySelector('#family_id');
+    
+    myFamilySelect.addEventListener('change', async (e)=>{
+        try {
+            const response = await fetch('/admin/species/filterFamily/'+e.target.value);
+            const result = await response.json();
+            var mySpecieSelect = document.querySelector('#specie_id');
+            mySpecieSelect.innerHTML = "";
+            for (const iterator of result) {
+                let newOption = document.createElement('option');
+                newOption.value = iterator.id;
+                newOption.text = iterator.name; 
+                mySpecieSelect.appendChild(newOption);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+    })
+</script>
