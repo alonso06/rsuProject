@@ -53,6 +53,7 @@ class TreeController extends Controller
 
         Trees::create(['name'=> $request->name, 
         'zone_id'=> $request->zone_id, 
+        'family_id'=> $request->family_id,
         'specie_id'=> $request->specie_id, 
         'birth_date'=> $request->birth_date, 
         'planting_date'=> $request->planting_date, 
@@ -102,8 +103,7 @@ class TreeController extends Controller
     {
         //
         $tree = Trees::find($id);
-        $data = $request->except('family_id');
-        $tree->update($data);
+        $tree->update($request->all());
         return Redirect()->route('admin.trees.index')->with('success','Arbol actualizado');
     }
 

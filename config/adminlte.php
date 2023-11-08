@@ -365,7 +365,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Tipo de tratamiento',
-                    'icon' => 'fas fa-fw fa-first-aid',
+                    'icon' => 'fas fa-notes-medical',
                     'route'  => 'admin.proceduretypes.index',
 
                 ],
