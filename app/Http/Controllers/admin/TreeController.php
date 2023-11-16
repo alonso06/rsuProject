@@ -48,8 +48,8 @@ class TreeController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $user_id = $user->id;
+        // $user = Auth::user();
+        // $user_id = $user->id;
 
         Trees::create(['name'=> $request->name, 
         'zone_id'=> $request->zone_id, 
@@ -60,7 +60,7 @@ class TreeController extends Controller
         'latitude'=> $request->latitude, 
         'longitude'=> $request->longitude, 
         'description'=> $request->description, 
-        'user_id'=>$user_id]);
+        'user_id'=>51]);
         return Redirect()->route('admin.trees.index')->with('success', 'Árbol registrado');
     }
 
@@ -119,5 +119,12 @@ class TreeController extends Controller
         $tree = Trees::find($id);
         $tree->delete();
         return Redirect()->route('admin.trees.index')->with('success','Árbol eliminado');
+    }
+
+    public function searchTree ($name )
+    {
+
+        $trees = Trees::where('name', 'LIKE', '%' . $name . '%')->get();
+        return view('admin.shared.showSearchTrees', ['trees' => $trees]);
     }
 }

@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\Families;
-use App\Models\admin\SpeciePhotos;
-use App\Models\admin\Species;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class SpecieController extends Controller
+class UserControllerApi extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +15,7 @@ class SpecieController extends Controller
      */
     public function index()
     {
-        
-        $species = Species::all();
-        return view('admin.species.index', compact('species'));
+        //
     }
 
     /**
@@ -29,9 +25,7 @@ class SpecieController extends Controller
      */
     public function create()
     {
-   
-        $families = Families::pluck('name','id');
-        return view('admin.species.create', compact('families'));
+        //
     }
 
     /**
@@ -42,8 +36,19 @@ class SpecieController extends Controller
      */
     public function store(Request $request)
     {
-        Species::create($request->all());
-        return Redirect()->route('admin.species.index')->with('success','Especie registrada');
+        //
+
+        $user   =   User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$request->password
+        ]); 
+        
+        return response()-> json([
+            'message' => 'Usuario creado',
+            'User' => $user
+        ], 200);
+
     }
 
     /**
@@ -54,11 +59,7 @@ class SpecieController extends Controller
      */
     public function show($id)
     {
-
-        $specie = Species::find($id);
-        $speciephotos = SpeciePhotos::where('specie_id',$id)->get();
-        
-        return view('admin.species.show', compact('specie','speciephotos'));
+        //
     }
 
     /**
@@ -69,9 +70,7 @@ class SpecieController extends Controller
      */
     public function edit($id)
     {
-        $specie = Species::find($id);
-        $families = Families::pluck('name','id');
-        return view('admin.species.edit', compact('specie','families'));
+        //
     }
 
     /**
@@ -83,9 +82,7 @@ class SpecieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $specie = Species::find($id);
-        $specie->update($request->all());
-        return Redirect()->route('admin.species.index')->with('success','Especie actualizada');
+        //
     }
 
     /**
@@ -97,14 +94,5 @@ class SpecieController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getSpeciesByFamily($id)
-    {
-        
-        $species = Species::where('family_id', '=', $id)->get();
-    
-        // Retorna la respuesta en formato JSON
-        return response()->json($species);
     }
 }

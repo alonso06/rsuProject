@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\Families;
-use App\Models\admin\SpeciePhotos;
-use App\Models\admin\Species;
+use App\Models\admin\Evolutions;
+use App\Models\admin\States;
+use App\Models\admin\Trees;
 use Illuminate\Http\Request;
 
-class SpecieController extends Controller
+class EvolutionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,18 @@ class SpecieController extends Controller
      */
     public function index()
     {
+        $evolutions = Evolutions::select(
+            'evolutions.id',
+            'evolutions.date', 
+            'trees.name as name_tree',
+            'states.name as name_state'
+        )
+        ->join('trees', 'evolutions.tree_id', '=', 'trees.id')
+        ->join('states', 'evolutions.state_id', '=', 'states.id')
+        ->get();
         
-        $species = Species::all();
-        return view('admin.species.index', compact('species'));
+        return view('admin.evolutions.index', compact('evolutions'));
+
     }
 
     /**
@@ -29,9 +38,8 @@ class SpecieController extends Controller
      */
     public function create()
     {
-   
-        $families = Families::pluck('name','id');
-        return view('admin.species.create', compact('families'));
+        $states = States::pluck('name', 'id');
+        return view('admin.evolutions.create', compact('states'));
     }
 
     /**
@@ -42,8 +50,7 @@ class SpecieController extends Controller
      */
     public function store(Request $request)
     {
-        Species::create($request->all());
-        return Redirect()->route('admin.species.index')->with('success','Especie registrada');
+        //
     }
 
     /**
@@ -54,11 +61,7 @@ class SpecieController extends Controller
      */
     public function show($id)
     {
-
-        $specie = Species::find($id);
-        $speciephotos = SpeciePhotos::where('specie_id',$id)->get();
-        
-        return view('admin.species.show', compact('specie','speciephotos'));
+        //
     }
 
     /**
@@ -69,9 +72,7 @@ class SpecieController extends Controller
      */
     public function edit($id)
     {
-        $specie = Species::find($id);
-        $families = Families::pluck('name','id');
-        return view('admin.species.edit', compact('specie','families'));
+        //
     }
 
     /**
@@ -83,9 +84,7 @@ class SpecieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $specie = Species::find($id);
-        $specie->update($request->all());
-        return Redirect()->route('admin.species.index')->with('success','Especie actualizada');
+        //
     }
 
     /**
@@ -99,12 +98,5 @@ class SpecieController extends Controller
         //
     }
 
-    public function getSpeciesByFamily($id)
-    {
-        
-        $species = Species::where('family_id', '=', $id)->get();
-    
-        // Retorna la respuesta en formato JSON
-        return response()->json($species);
-    }
+
 }
