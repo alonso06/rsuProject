@@ -1,5 +1,4 @@
-{{-- {!! Form::open(['route' => 'admin.trees.store']) !!} --}}
-{!! Form::open([]) !!}
+{!! Form::open(['route'=>'admin.evolutions.store']) !!}
 
 @include('admin.evolutions.partials.form')
 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Registrar</button>

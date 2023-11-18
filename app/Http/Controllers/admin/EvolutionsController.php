@@ -5,8 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\admin\Evolutions;
 use App\Models\admin\States;
-use App\Models\admin\Trees;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EvolutionsController extends Controller
 {
@@ -32,7 +32,7 @@ class EvolutionsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource.::info('msjSystem');
      *
      * @return \Illuminate\Http\Response
      */
@@ -50,7 +50,21 @@ class EvolutionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        Evolutions::create([
+            'date'          =>  $request->date,
+            'height'        =>  $request->height,
+            'width'         =>  $request->width,
+            'description'   =>  $request->description,
+            'tree_id'       =>  $request->tree_id,
+            'state_id'      =>  $request->state_id,
+            'user_id'       =>  $user_id,
+        ]);
+
+        return Redirect()->route('admin.evolutions.index')->with('success', 'Evolución registrada');
     }
 
     /**

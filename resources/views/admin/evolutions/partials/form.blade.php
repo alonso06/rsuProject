@@ -4,10 +4,10 @@
             {!! Form::label('tree_id', 'Árbol') !!}
             <div class="d-flex">
                 <div>
-                    {!! Form::text('tree_id', null, [
+                    <input class="form-control" required="" name="searchTree" type="text" id="searchTree">
+
+                    {!! Form::hidden('tree_id', null, [
                         'class' => 'form-control ',
-                        'placeholder' => 'Buscar árbol',
-                        'required',
                     ]) !!}
                 </div>
                 <div class="ml-3">
@@ -38,8 +38,8 @@
 
         <div class="col-lg-6">
             <div class="form-group">
-                {!! Form::label('Alto', 'Alto') !!}
-                {!! Form::text('Alto', null, [
+                {!! Form::label('height', 'Alto') !!}
+                {!! Form::text('height', null, [
                     'class' => 'form-control',
                     'required',
                 ]) !!}
@@ -48,8 +48,8 @@
 
         <div class="col-lg-6">
             <div class="form-group">
-                {!! Form::label('Ancho', 'Ancho') !!}
-                {!! Form::text('Ancho', null, [
+                {!! Form::label('width', 'Ancho') !!}
+                {!! Form::text('width', null, [
                     'class' => 'form-control',
                     'required',
                 ]) !!}
@@ -81,7 +81,7 @@
 
 <script>
     $('#btnSearch').click(function() {
-        var nameTree = $('#tree_id').val();
+        var nameTree = $('#searchTree').val();
         $.ajax({
             url: "/admin/trees/searchTree/" + nameTree,
             type: "GET",
@@ -97,7 +97,12 @@
     $('.iframeSearchTreeContainer').on('click', '.tree-cell', function() {
 
         var treeName = $(this).text();
-        $('input[name="tree_id"]').val(treeName);
+        
+        var treeId = $(this).attr('id'); 
 
+
+        $('#searchTree').val(treeName);
+
+        $('input[name="tree_id"]').val(treeId);
     });
 </script>

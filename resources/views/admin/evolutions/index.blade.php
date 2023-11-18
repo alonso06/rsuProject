@@ -46,7 +46,7 @@
                                     </form>
                                 </td>
                                 <td width="20px">
-                                    <a href="{{ route('admin.evolutions.show', $evolutions->id) }}"
+                                    <a href="{{ route('admin.evolutions.show', $evolution->id) }}"
                                         class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
                                 </td>
                             </tr>

@@ -32,6 +32,7 @@ Route::get('/species/filterFamily/{id}',[SpecieController::class,'getSpeciesByFa
 Route::resource('evolutions', EvolutionsController::class)->names('admin.evolutions');
 Route::get('/trees/searchTree/{name}', [TreeController::class, 'searchTree'])->name('admin.trees.searchTree');
 
+
 // Ruta para perfil de usuario
 Route::get('/profile', function () {
     return view('profile.show');
