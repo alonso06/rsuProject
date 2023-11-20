@@ -121,10 +121,20 @@ class TreeController extends Controller
         return Redirect()->route('admin.trees.index')->with('success','Árbol eliminado');
     }
 
-    public function searchTree ($name )
+    public function searchTreeByName ($name )
     {
 
         $trees = Trees::where('name', 'LIKE', '%' . $name . '%')->get();
         return view('admin.shared.showSearchTrees', ['trees' => $trees]);
     }
+
+    static function searchTreeById( $id )
+    {
+
+        $tree = Trees::find($id);
+        return $tree->name;
+    }
+
+
+
 }

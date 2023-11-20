@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\admin\Evolutions;
 use App\Models\admin\States;
+use App\Models\admin\Trees;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,7 +40,8 @@ class EvolutionsController extends Controller
     public function create()
     {
         $states = States::pluck('name', 'id');
-        return view('admin.evolutions.create', compact('states'));
+        $name_tree = '';
+        return view('admin.evolutions.create', compact('states','name_tree'));
     }
 
     /**
@@ -51,6 +53,13 @@ class EvolutionsController extends Controller
     public function store(Request $request)
     {
 
+        $tree = TreeController::searchTreeById( $request->tree_id );
+
+        // Verificar no seleccionar un árbol ya registrado
+        if ( $tree ){
+            return response()->json(['error' => 'Este árbol ya registrado'], 400);
+        }
+            
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -86,7 +95,15 @@ class EvolutionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $states = States::pluck('name', 'id');
+        
+        $evolution = Evolutions::find($id);
+
+        $tree_id = $evolution->tree_id;
+        
+        $name_tree = TreeController::searchTreeById($tree_id);        
+
+        return view('admin.evolutions.edit', compact('states', 'evolution', 'name_tree'));
     }
 
     /**
@@ -98,8 +115,15 @@ class EvolutionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        
+        $evolution = Evolutions::find( $id );
+        
+        $dataToUpdate = $request->except(['searchTree']);
+        
+        $evolution->update($dataToUpdate);
+
+        return Redirect()->route('admin.evolutions.index')->with('success','Evolución actualizada');
+   }
 
     /**
      * Remove the specified resource from storage.
@@ -109,7 +133,12 @@ class EvolutionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $evolution = Evolutions::find( $id );
+
+        $evolution->delete();
+
+        return Redirect()->route('admin.evolutions.index')->with('success','Evolución eliminada');
+        
     }
 
 

@@ -30,7 +30,7 @@ Route::get('/species/filterFamily/{id}',[SpecieController::class,'getSpeciesByFa
 
 //* Alonso
 Route::resource('evolutions', EvolutionsController::class)->names('admin.evolutions');
-Route::get('/trees/searchTree/{name}', [TreeController::class, 'searchTree'])->name('admin.trees.searchTree');
+Route::get('/trees/searchTree/{name}', [TreeController::class, 'searchTreeByName'])->name('admin.trees.searchTree');
 
 
 // Ruta para perfil de usuario

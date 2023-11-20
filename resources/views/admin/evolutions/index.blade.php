@@ -100,8 +100,17 @@
                 url: "{{ route('admin.evolutions.edit', 'id') }}".replace('id', id),
                 type: "GET",
                 success: function(response) {
+
                     $('#Modal .modal-body').html(response);
+
+                    var nameTree = $('#searchTree').data('name-tree');
+
+                    console.log(nameTree);
+
+                    $('#Modal #searchTree').val(nameTree);
+
                     $('#Modal').modal('show');
+
                 }
             })
         });
@@ -125,6 +134,18 @@
             })
         })
 
+        $.ajax({
+            url: "{{ route('admin.evolutions.store') }}",
+            type: "POST",
+            data: formData,
+            success: function(response) {
+               if (response.error) {
+                    $('#Modal .modal-body').html('<div class="alert alert-danger">' + response.error +
+                    '</div>');
+                }
+            }
+        });
+
 
         $('#listados').DataTable({
             language: {
@@ -139,6 +160,5 @@
                 'success'
             )
         @endif
-
     </script>
 @endsection
