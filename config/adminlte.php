@@ -348,12 +348,12 @@ return [
         [
             'text'    => 'Evolución',
             'icon' => 'fas fa-fw fa-thermometer-half',
-            'url'     => 'users.index',
+            'url'     => '',
             'submenu' => [
                 [
                     'text' => 'Estados de evolución',
                     'icon' => 'fas fa-fw fa-thermometer-half',
-                    'url'  => 'admin.states.index',
+                    'route'  => 'admin.evolutions.index',
 
                 ],
             ],
