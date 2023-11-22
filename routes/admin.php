@@ -39,5 +39,4 @@ Route::get('/profile', function () {
 })->name('profile');
 // Route::resource('users', UserController::class)->names('admin.users');
 
-
 ?>

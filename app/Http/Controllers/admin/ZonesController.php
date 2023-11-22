@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\Zones;
+use App\Models\admin\Trees;
 use Illuminate\Http\Request;
 
 class ZonesController extends Controller
@@ -25,8 +26,8 @@ class ZonesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.zones.create');
+    {   
+        return view('admin.zones.create',compact('is_zone'));
     }
 
     /**
@@ -49,8 +50,13 @@ class ZonesController extends Controller
      */
     public function show($id)
     {
-        $zone = Zones::find($id);        
-        return view('admin.zones.show', compact('zone'));
+        $zone = Zones::find($id);
+        $treeByZone = Trees::select('trees.*', 'zones.name as zone_name', 'species.name as specie_name')
+        ->join('zones', 'trees.zone_id', '=', 'zones.id')
+        ->join('species', 'trees.specie_id', '=', 'species.id')
+        ->where('zone_id',$id)
+        ->get();
+        return view('admin.zones.show', compact('zone','treeByZone'));
     }
 
     /**
