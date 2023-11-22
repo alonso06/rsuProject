@@ -346,19 +346,6 @@ return [
         ],
 
         [
-            'text'    => 'Evolución',
-            'icon' => 'fas fa-fw fa-thermometer-half',
-            'url'     => '',
-            'submenu' => [
-                [
-                    'text' => 'Estados de evolución',
-                    'icon' => 'fas fa-fw fa-thermometer-half',
-                    'route'  => 'admin.evolutions.index',
-
-                ],
-            ],
-        ],
-        [
             'text'    => 'Tratamiento',
             'icon' => 'fas fa-fw fa-first-aid',
             'url'     => 'users.index',

@@ -1,34 +1,10 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="form-group">
-            {!! Form::label('tree_id', 'Árbol') !!}
-            <div class="d-flex">
-                <div>
-                    <input 
-                        class="form-control" 
-                        required="" 
-                        name="searchTree" 
-                        type="text" 
-                        id="searchTree"
-                        data-name-tree="{{ $name_tree }}"
-                    >
-
-                    {!! Form::hidden('tree_id', null, [
-                        'class' => 'form-control ',
-                    ]) !!}
-                </div>
-                <div class="ml-3">
-                    <button type="button" class="btn btn-success " id="btnSearch">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="iframeSearchTreeContainer">
-
-            </div>
+            {!! Form::hidden('tree_id', $tree_id, [
+                'class' => 'form-control '
+            ]) !!}
         </div>
-
     </div>
     <div class="col-lg-6">
         <div class="form-group">

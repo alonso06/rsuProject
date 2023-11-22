@@ -16,19 +16,28 @@ class EvolutionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    // public function index( $tree_id )
+    // { 
+
+    // }
+
+    // Index
+    public function listEvolutions( int $tree_id )
     {
+        $name_tree = TreeController::searchTreeById( $tree_id );
+        
         $evolutions = Evolutions::select(
             'evolutions.id',
             'evolutions.date', 
-            'trees.name as name_tree',
             'states.name as name_state'
         )
         ->join('trees', 'evolutions.tree_id', '=', 'trees.id')
         ->join('states', 'evolutions.state_id', '=', 'states.id')
+        ->where('evolutions.tree_id', $tree_id)
         ->get();
         
-        return view('admin.evolutions.index', compact('evolutions'));
+        return view('admin.evolutions.index', compact('evolutions', 'name_tree', 'tree_id'));
 
     }
 
@@ -37,11 +46,16 @@ class EvolutionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+
+    // Create
+    public function createTree( int $tree_id ){
+
+        // return $tree_id;
+
         $states = States::pluck('name', 'id');
-        $name_tree = '';
-        return view('admin.evolutions.create', compact('states','name_tree'));
+        
+        return view('admin.evolutions.create', compact('states', 'tree_id'));
+
     }
 
     /**
@@ -53,13 +67,6 @@ class EvolutionsController extends Controller
     public function store(Request $request)
     {
 
-        $tree = TreeController::searchTreeById( $request->tree_id );
-
-        // Verificar no seleccionar un árbol ya registrado
-        if ( $tree ){
-            return response()->json(['error' => 'Este árbol ya registrado'], 400);
-        }
-            
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -73,7 +80,7 @@ class EvolutionsController extends Controller
             'user_id'       =>  $user_id,
         ]);
 
-        return Redirect()->route('admin.evolutions.index')->with('success', 'Evolución registrada');
+        return Redirect()->route('admin.evolutions.listEvolutions',['tree_id'=>$request->tree_id ])->with('success', 'Evolución registrada');
     }
 
     /**
@@ -101,9 +108,7 @@ class EvolutionsController extends Controller
 
         $tree_id = $evolution->tree_id;
         
-        $name_tree = TreeController::searchTreeById($tree_id);        
-
-        return view('admin.evolutions.edit', compact('states', 'evolution', 'name_tree'));
+        return view('admin.evolutions.edit', compact('states', 'evolution', 'tree_id'));
     }
 
     /**
@@ -115,14 +120,11 @@ class EvolutionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $evolution = Evolutions::find( $id );
         
-        $dataToUpdate = $request->except(['searchTree']);
-        
-        $evolution->update($dataToUpdate);
+        $evolution->update($request->all());
 
-        return Redirect()->route('admin.evolutions.index')->with('success','Evolución actualizada');
+        return Redirect()->route('admin.evolutions.listEvolutions',['tree_id'=>$request->tree_id ])->with('success','Evolución actualizada');
    }
 
     /**
@@ -137,7 +139,7 @@ class EvolutionsController extends Controller
 
         $evolution->delete();
 
-        return Redirect()->route('admin.evolutions.index')->with('success','Evolución eliminada');
+        return Redirect()->route('admin.evolutions.listEvolutions',['tree_id'=>$evolution->tree_id ])->with('success','Evolución eliminada');
         
     }
 
