@@ -21,12 +21,14 @@ return new class extends Migration
             $table->text('description')->nullable(true);
             $table->double('latitude');
             $table->double('longitude');
+            $table->unsignedBigInteger('family_id');
             $table->unsignedBigInteger('specie_id');
             $table->unsignedBigInteger('zone_id');
             $table->unsignedBigInteger('user_id');   
             $table->foreign('specie_id')->references('id')->on('species');
             $table->foreign('zone_id')->references('id')->on('zones');
-            $table->foreign('user_id')->references('id')->on('users');         
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('family_id')->references('id')->on('families');         
             $table->timestamps();
         });
     }

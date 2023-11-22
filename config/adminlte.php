@@ -134,7 +134,7 @@ return [
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -259,7 +259,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => true,
+    'profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -348,12 +348,12 @@ return [
         [
             'text'    => 'Evolución',
             'icon' => 'fas fa-fw fa-thermometer-half',
-            'url'     => 'users.index',
+            'url'     => '',
             'submenu' => [
                 [
                     'text' => 'Estados de evolución',
                     'icon' => 'fas fa-fw fa-thermometer-half',
-                    'url'  => 'admin.states.index',
+                    'route'  => 'admin.evolutions.index',
 
                 ],
             ],
@@ -365,7 +365,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Tipo de tratamiento',
-                    'icon' => 'fas fa-fw fa-first-aid',
+                    'icon' => 'fas fa-notes-medical',
                     'route'  => 'admin.proceduretypes.index',
 
                 ],
@@ -385,7 +385,7 @@ return [
         ],
         [
             'text' => 'Usuarios',
-            'route'  => 'admin.users.index',
+            'url'  => 'admin.users.index',
             'icon' => 'fas fa-fw fa-user-plus',
         ],
     ],

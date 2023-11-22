@@ -17,6 +17,7 @@ class SpecieController extends Controller
      */
     public function index()
     {
+        
         $species = Species::all();
         return view('admin.species.index', compact('species'));
     }

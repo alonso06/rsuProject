@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\EvolutionsController;
 use App\Http\Controllers\admin\SpeciePhotosController;
 use App\Http\Controllers\admin\FamiliesController;
 use App\Http\Controllers\admin\ProcedureTypesController;
@@ -23,11 +24,20 @@ Route::resource('proceduretypes', ProcedureTypesController::class)->names('admin
 Route::resource('responsibles', ResponsiblesController::class)->names('admin.responsibles');
 Route::resource('procedures', ProceduresController::class)->names('admin.procedures');
 
+
 //route test
 Route::get('/species/filterFamily/{id}',[SpecieController::class,'getSpeciesByFamily']);
 
-// Alonso
-Route::resource('users', UserController::class)->names('admin.users');
+//* Alonso
+Route::resource('evolutions', EvolutionsController::class)->names('admin.evolutions');
+Route::get('/trees/searchTree/{name}', [TreeController::class, 'searchTreeByName'])->name('admin.trees.searchTree');
+
+
+// Ruta para perfil de usuario
+Route::get('/profile', function () {
+    return view('profile.show');
+})->name('profile');
+// Route::resource('users', UserController::class)->names('admin.users');
 
 
 ?>
