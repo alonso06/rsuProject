@@ -30,6 +30,8 @@ Route::get('/species/filterFamily/{id}',[SpecieController::class,'getSpeciesByFa
 
 //* Alonso
 Route::resource('evolutions', EvolutionsController::class)->names('admin.evolutions');
+Route::get('/trees/evolutions/Index/{tree_id}', [EvolutionsController::class, 'listEvolutions'])->name('admin.evolutions.listEvolutions');
+Route::get('/trees/evolutions/Create/{tree_id}', [EvolutionsController::class, 'createTree'])->name('admin.evolutions.createTree');
 Route::get('/trees/searchTree/{name}', [TreeController::class, 'searchTreeByName'])->name('admin.trees.searchTree');
 
 

@@ -57,6 +57,10 @@
                                 <td width="20px">
                                     <a href="{{ route('admin.trees.show', $tree->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
                                 </td>
+
+                                <td width="20px">
+                                    <a href="{{ route('admin.evolutions.listEvolutions', ['tree_id' => $tree->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

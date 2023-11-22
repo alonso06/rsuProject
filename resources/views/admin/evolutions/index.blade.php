@@ -11,17 +11,16 @@
     <div class="card">
         <div class="card-header">
 
-            <button type="button" class="btn btn-success float-right" id="btnRegistrar">
+            <button type="button" class="btn btn-success float-right" data-tree-id="{{ $tree_id }}" id="btnRegistrar">
                 <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Registrar
             </button>
-            <h4>Listado de evoluciones</h4>
+            <h4>Listado de evoluciones del árbol - {{ $name_tree }}</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped" id="listados">
                     <thead>
                         <th>ID</th>
-                        <th>ÁRBOL</th>
                         <th>FECHA</th>
                         <th>ESTADO</th>
                     </thead>
@@ -29,7 +28,6 @@
                         @foreach ($evolutions as $evolution)
                             <tr>
                                 <td>{{ $evolution->id }}</td>
-                                <td>{{ $evolution->name_tree }}</td>
                                 <td>{{ $evolution->date }}</td>
                                 <td>{{ $evolution->name_state }}</td>
                                 <td width="20px">
@@ -82,8 +80,11 @@
 
     <script>
         $('#btnRegistrar').click(function() {
+
+            var treeId = $(this).data('tree-id');
+            console.log(treeId);
             $.ajax({
-                url: "{{ route('admin.evolutions.create') }}",
+                url: "{{ route('admin.evolutions.createTree', 'tree_id') }}".replace('tree_id', treeId),
                 type: "GET",
                 success: function(response) {
                     $('#Modal .modal-body').html(response);
