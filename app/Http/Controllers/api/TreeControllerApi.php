@@ -21,11 +21,18 @@ class TreeControllerApi extends Controller
     public function index()
     {
         try {
+
+            // $user = Auth::user();
             $trees = Trees::select('trees.*', 'zones.name as zone_name', 'species.name as specie_name')
             ->join('zones', 'trees.zone_id', '=', 'zones.id')
             ->join('species', 'trees.specie_id', '=', 'species.id')
             ->get();
             return response()->json($trees, 200);
+        } catch(\Illuminate\Auth\AuthenticationException $e){
+            return response()->json([
+                'error' => 'No autenticado',
+                'message' => 'Acceso no autorizado. Inicie sesión para acceder a esta función.',
+            ], 401);
         } catch (\Throwable $e) {
             return response()->json([
                 'error' => 'Error interno del servidor',

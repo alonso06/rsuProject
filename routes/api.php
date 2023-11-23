@@ -19,12 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/login', [AuthControllerApi::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthControllerApi::class, 'logout']);
+Route::middleware('auth:sanctum')->resource('trees',TreeControllerApi::class)->names('api.trees');
 
-// Route::get('families/list', [FamiliesControllerApi::class, 'index'])->name('apiFamiliesIndex');
 
-Route::resource('trees',TreeControllerApi::class)->names('api.trees');
-Route::post('login', [AuthControllerApi::class, 'login']);
 
-Route::group(['middleware' => ['auth:sanctum', 'web']], function () {
-    Route::post('logout', [AuthControllerApi::class, 'logout']);
-});
