@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\EvolutionsController;
 use App\Http\Controllers\admin\SpeciePhotosController;
 use App\Http\Controllers\admin\FamiliesController;
+use App\Http\Controllers\admin\MapsController;
 use App\Http\Controllers\admin\ProcedureTypesController;
 use App\Http\Controllers\admin\ResponsiblesController;
 use App\Http\Controllers\admin\SpecieController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\admin\TreeController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\ZonesController;
 use App\Http\Controllers\admin\ProceduresController;
+use App\Http\Controllers\admin\ZoneCoordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -23,6 +25,8 @@ Route::resource('zones', ZonesController::class)->names('admin.zones');
 Route::resource('proceduretypes', ProcedureTypesController::class)->names('admin.proceduretypes');
 Route::resource('responsibles', ResponsiblesController::class)->names('admin.responsibles');
 Route::resource('procedures', ProceduresController::class)->names('admin.procedures');
+Route::resource('zonecoords', ZoneCoordController::class)->names('admin.zonecoords');
+Route::resource('maps', MapsController::class)->names('admin.maps');
 
 
 //route test
