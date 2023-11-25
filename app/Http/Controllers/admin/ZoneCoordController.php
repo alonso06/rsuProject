@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\Zones;
-use App\Models\admin\Trees;
 use App\Models\admin\ZoneCoord;
 use Illuminate\Http\Request;
 
-class ZonesController extends Controller
+class ZoneCoordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +15,7 @@ class ZonesController extends Controller
      */
     public function index()
     {
-        $zones = Zones::all();
-        return view('admin.zones.index', compact('zones'));
+        //
     }
 
     /**
@@ -27,8 +24,8 @@ class ZonesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
-        return view('admin.zones.create');
+    {
+        return view('admin.zonecoords.create');
     }
 
     /**
@@ -39,8 +36,8 @@ class ZonesController extends Controller
      */
     public function store(Request $request)
     {
-        Zones::create($request->all());
-        return Redirect()->route('admin.zones.index')->with('success','Zona Registrada');
+        ZoneCoord::create($request->all());
+        return Redirect()->route('admin.zonecoords.index')->with('success','Coordenada Registrada');
     }
 
     /**
@@ -51,14 +48,7 @@ class ZonesController extends Controller
      */
     public function show($id)
     {
-        $zone = Zones::find($id);
-        $zoneCoords = ZoneCoord::where ('zone_id', $id)->get(); 
-        $treeByZone = Trees::select('trees.*', 'zones.name as zone_name', 'species.name as specie_name')
-        ->join('zones', 'trees.zone_id', '=', 'zones.id')
-        ->join('species', 'trees.specie_id', '=', 'species.id')
-        ->where('zone_id',$id)
-        ->get();
-        return view('admin.zones.show', compact('zone','zoneCoords', 'treeByZone'));
+        //
     }
 
     /**
@@ -69,8 +59,9 @@ class ZonesController extends Controller
      */
     public function edit($id)
     {
-        $zone = Zones::find($id);
-        return view('admin.zones.edit', compact('zone'));
+        $vertice = ZoneCoord::select('longitude as lat','latitude as lng')
+            ->where('zona_id', $id);
+        return view('admin.zonecoord.create', compact('vertice'));
     }
 
     /**
@@ -82,9 +73,7 @@ class ZonesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $zone = Zones::find($id);
-        $zone->update($request->all());
-        return Redirect()->route('admin.zones.index')->with('success','Zona actualizada');
+        //
     }
 
     /**
@@ -95,8 +84,8 @@ class ZonesController extends Controller
      */
     public function destroy($id)
     {
-        $zone = Zones::find($id);
-        $zone->delete();
-        return Redirect()->route('admin.zones.index')->with('success','Zona eliminada');
+        $zonecoord = ZoneCoord::find($id);
+        $zonecoord->delete();
+        return Redirect()->route('admin.zonecoords.index')->with('success','Coordenada eliminada');
     }
 }

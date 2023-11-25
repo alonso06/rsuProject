@@ -11,8 +11,9 @@
     <div class="card">
         <div class="card-header">
             <!--<button class="btn btn-success float-right"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Registrar</button>-->
-            <a href="{{ route('admin.families.create') }}" class="btn btn-success float-right"><i
-                    class="fas fa-plus-circle"></i>&nbsp;&nbsp;Registrar</a>
+            <button type="button" class="btn btn-success float-right" id="btnRegistrar">
+                <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Registrar
+            </button>
             <h4>Listado de Familias</h4>
         </div>
         <div class="card-body">
@@ -32,10 +33,12 @@
                             <td>{{ $family->name }}</td>
                             <td>{{ $family->cien_name }}</td>
                             <td>{{ $family->description }}</td>
-                            <td width="20px"><a href="{{ route('admin.families.edit', $family) }}"
-                                    class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a></td>
                             <td width="20px">
-                                <form action="{{ route('admin.families.destroy', $family->id) }}" method="post"
+                                <button class="btn btn-success btn-sm btnEditar" data-id="{{ $family->id }}"><i
+                                        class="fas fa-edit"></i></button>
+                            </td>
+                            <td width="20px">
+                                <form action="{{ route('admin.species.destroy', $family->id) }}" method="post"
                                     class="eliminacion">
                                     @csrf
                                     @method('delete')
@@ -49,11 +52,58 @@
             </table>
         </div>
     </div>
+
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Formulario de Familias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <!--<div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>-->
+            </div>
+        </div>
+    </div>
+
+
 @stop
 
 @section('js')
 
     <script>
+        $('#btnRegistrar').click(function() {
+            $.ajax({
+                url: "{{ route('admin.families.create') }}",
+                type: "GET",
+                success: function(response) {
+                    $('#Modal .modal-body').html(response);
+                    $('#Modal').modal('show');
+                }
+            })
+        });
+
+        $('.btnEditar').click(function() {
+
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: "{{ route('admin.families.edit','id') }}".replace('id',id),
+                type: "GET",
+                success: function(response) {
+                    $('#Modal .modal-body').html(response);
+                    $('#Modal').modal('show');
+                }
+            })
+        });
+
         $('.eliminacion').submit(function(e) {
 
             e.preventDefault();
@@ -86,6 +136,5 @@
                 'success'
             )
         @endif
-
     </script>
 @endsection
