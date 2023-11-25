@@ -22,6 +22,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthControllerApi::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthControllerApi::class, 'logout']);
 Route::middleware('auth:sanctum')->resource('trees',TreeControllerApi::class)->names('api.trees');
-
-
-
